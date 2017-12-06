@@ -12,4 +12,5 @@ After the services of the guider to the traveller which has booked the trip with
 to rate and comment about the services. Ratings and comments are only amvailable after the full service of the guider.
 
 This application uses MVC technology in Razor view, Entity Framework, linq and fluent API techniques, triggers, ajax calls, geolocation Google API and so more.
-The databse diagram is :
+The databse diagram:
+![img](https://github.com/KarenNersesian/traveller2guider/blob/master/traveller2guiderDatabaseDiagram.png)
