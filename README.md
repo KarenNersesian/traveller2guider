@@ -11,5 +11,5 @@ On the other hand guider can customize his profile, adding skills that he has go
 After the services of the guider to the traveller which has booked the trip with him, the application is giving the chance to the traveller
 to rate and comment about the services. Ratings and comments are only amvailable after the full service of the guider.
 
-This application uses MVC technology in Razor view, Entity Framework, linq and fluent API techniques, geolocation Google API and so more.
+This application uses MVC technology in Razor view, Entity Framework, linq and fluent API techniques, triggers, ajax calls, geolocation Google API and so more.
 The databse diagram is :
