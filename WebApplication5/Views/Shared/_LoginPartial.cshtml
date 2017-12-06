@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNet.Identity
+
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @class = "promoted" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { @class = "promoted" })
+        <input type="submit" id="logoutform" value="Log off" style = 
+                                        "border:none;
+                                        background-image:none;
+                                        background-color:transparent;
+                                        -webkit-box-shadow: none;
+                                        -moz-box-shadow: none;
+                                        box-shadow: none; 
+                                        color: deepskyblue;"/>
+    }
+}
+else
+{
+    <strong>
+        @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "promoted" })
+    </strong>
+    @Html.ActionLink("Sign in", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "promoted" })
+}

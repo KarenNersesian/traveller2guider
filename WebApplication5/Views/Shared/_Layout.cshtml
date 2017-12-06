@@ -1,0 +1,177 @@
+﻿@using System.Web.Optimization
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="ThemeStarz">
+    @Styles.Render("http://fonts.googleapis.com/css?family=Roboto:300,400,700")
+    @Styles.Render("~/assets/fonts/font-awesome.css")
+    @Styles.Render("~/assets/bootstrap/css/bootstrap.css")
+    @Styles.Render("~/assets/css/bootstrap-select.min.css")
+    @Styles.Render("~/assets/css/jquery.slider.min.css")
+    @Styles.Render("~/assets/css/owl.carousel.css")
+    @Styles.Render("~/assets/css/style.css")
+    @Styles.Render("~/assets/css/magnific-popup.css")
+    @*@Styles.Render("~/Content/css")*@
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    
+    <title>Zoner | Google Map with Advanced Horizontal Search</title>
+</head>
+
+<body class="page-homepage map-google navigation-fixed-top horizontal-search" id="page-top" data-spy="scroll" data-target=".navigation" data-offset="90">
+    <!-- Wrapper -->
+    <div class="wrapper">
+
+        <div class="navigation">
+            <div class="secondary-navigation">
+                <div class="container">
+                    <div class="user-area">
+                        <div class="actions">
+                            @Html.Partial("_LoginPartial")
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <header class="navbar" id="top" role="banner">
+                    <div class="navbar-header">
+
+                        <div class="navbar-brand nav" id="brand">
+                            <a href="index-google-map-fullscreen.html"><img src="~/assets/img/logo.png" alt="brand"></a>
+                        </div>
+                    </div>
+                    @Html.Partial("_MenuPartial")
+
+                </header><!-- /.navbar -->
+            </div><!-- /.container -->
+        </div><!-- /.navigation -->
+        <!-- Map -->
+        <!--
+            <div id="map" class="has-parallax"></div>
+        -->
+        <!-- end Map -->
+        <!-- Search Box -->
+        @RenderBody()
+
+        <!-- Page Footer -->
+        <footer id="page-footer">
+            <div class="inner">
+                <aside id="footer-main">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3">
+                                <article>
+                                    <h3>About Us</h3>
+                                    <p>
+                                        Vel fermentum ipsum. Suspendisse quis molestie odio. Interdum et malesuada fames ac ante ipsum
+                                        primis in faucibus. Quisque aliquet a metus in aliquet. Praesent ut turpis posuere, commodo odio
+                                        id, ornare tortor
+                                    </p>
+                                    <hr>
+                                    <a href="#" class="link-arrow">Read More</a>
+                                </article>
+                            </div><!-- /.col-sm-3 -->
+                            <div class="col-md-3 col-sm-3">
+                                <article>
+                                    <h3>Recent Properties</h3>
+                                    <div class="property small">
+                                        <a href="property-detail.html">
+                                            <div class="property-image">
+                                                <img alt="" src="~/assets/img/properties/property-06.jpg">
+                                            </div>
+                                        </a>
+                                        <div class="info">
+                                            <a href="property-detail.html"><h4>2186 Rinehart Road</h4></a>
+                                            <figure>Doral, FL 33178 </figure>
+                                            <div class="tag price">$ 72,000</div>
+                                        </div>
+                                    </div><!-- /.property -->
+                                    <div class="property small">
+                                        <a href="property-detail.html">
+                                            <div class="property-image">
+                                                <img alt="" src="~/assets/img/properties/property-09.jpg">
+                                            </div>
+                                        </a>
+                                        <div class="info">
+                                            <a href="property-detail.html"><h4>2479 Murphy Court</h4></a>
+                                            <figure>Minneapolis, MN 55402</figure>
+                                            <div class="tag price">$ 36,000</div>
+                                        </div>
+                                    </div><!-- /.property -->
+                                </article>
+                            </div><!-- /.col-sm-3 -->
+                            <div class="col-md-3 col-sm-3">
+                                <article>
+                                    <h3>Contact</h3>
+                                    <address>
+                                        <strong>Your Company</strong><br>
+                                        4877 Spruce Drive<br>
+                                        West Newton, PA 15089
+                                    </address>
+                                    +1 (734) 123-4567<br>
+                                    <a href="#">hello@example.com</a>
+                                </article>
+                            </div><!-- /.col-sm-3 -->
+                            <div class="col-md-3 col-sm-3">
+                                <article>
+                                    <h3>Useful Links</h3>
+                                    <ul class="list-unstyled list-links">
+                                        <li><a href="#">All Properties</a></li>
+                                        <li><a href="#">Privacy Policy</a></li>
+                                        <li><a href="#">Login and Register Account</a></li>
+                                        <li><a href="#">FAQ</a></li>
+                                        <li><a href="#">Terms and Conditions</a></li>
+                                    </ul>
+                                </article>
+                            </div><!-- /.col-sm-3 -->
+                        </div><!-- /.row -->
+                    </div><!-- /.container -->
+                </aside><!-- /#footer-main -->
+                <aside id="footer-thumbnails" class="footer-thumbnails"></aside><!-- /#footer-thumbnails -->
+                <aside id="footer-copyright">
+                    <div class="container">
+                        <span>Copyright © 2013. All Rights Reserved.</span>
+                        <span class="pull-right"><a href="#page-top" class="roll">Go to top</a></span>
+                    </div>
+                </aside>
+            </div><!-- /.inner -->
+        </footer>
+        <!-- end Page Footer -->
+
+    </div>
+   
+    @Scripts.Render("~/assets/js/jquery-2.1.0.min.js")
+    @*@Scripts.Render("http://maps.google.com/maps/api/js?sensor=false")*@
+    @Scripts.Render("~/assets/js/jquery-migrate-1.2.1.min.js")
+    @Scripts.Render("~/assets/bootstrap/js/bootstrap.min.js")
+    @Scripts.Render("~/assets/js/smoothscroll.js")
+    @Scripts.Render("~/assets/js/markerwithlabel_packed.js")
+    @Scripts.Render("~/assets/js/infobox.js")
+    @Scripts.Render("~/assets/js/owl.carousel.min.js")
+    @Scripts.Render("~/assets/js/bootstrap-select.min.js")
+    @Scripts.Render("~/assets/js/jquery.validate.min.js")
+    @Scripts.Render("~/assets/js/jquery.placeholder.js")
+    @Scripts.Render("~/assets/js/icheck.min.js")
+    @Scripts.Render("~/assets/js/jquery.vanillabox-0.1.5.min.js")
+    @Scripts.Render("~/assets/js/retina-1.1.0.min.js")
+    @Scripts.Render("~/assets/js/jshashtable-2.1_src.js")
+    @Scripts.Render("~/assets/js/jquery.numberformatter-1.2.3.js")
+    @Scripts.Render("~/assets/js/tmpl.js")
+    @Scripts.Render("~/assets/js/jquery.dependClass-0.1.js")
+    @Scripts.Render("~/assets/js/draggable-0.1.js")
+    @Scripts.Render("~/assets/js/jquery.slider.js")
+    @Scripts.Render("~/assets/js/markerclusterer_packed.js")
+    @Scripts.Render("~/assets/js/custom-map.js")
+    @Scripts.Render("~/assets/js/custom.js")
+    @Scripts.Render("~/assets/js/custom-account-map.js")
+    @Scripts.Render("~/assets/js/jquery.magnific-popup.min.js")
+    @Scripts.Render("~/assets/js/jquery.raty.min.js")
+    @Scripts.Render("~/assets/js/jquery.numberformatter-1.2.3.js")
+
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)*@
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+﻿@using WebApplication5.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+<h2>@ViewBag.Title.</h2>
+
+
+@*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+
+<div class="page-sub-page page-sign-in page-account">
+    <div id="page-content">
+        <!-- Breadcrumb -->
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Sign In</li>
+            </ol>
+        </div>
+        <!-- end Breadcrumb -->
+
+        <div class="container">
+            <header><h1>Sign In</h1></header>
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-create-account", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email, new { @for = "form-create-account-email" })
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", id = "form-create-account-email" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @for = "form-create-account-password" })
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "form-create-account-password" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                            @Html.LabelFor(m => m.RememberMe)
+                        </div>
+                        <div class="form-group clearfix">
+                            <input type="submit" value="Sign to My Account" class="btn pull-right btn-default" id="account-submit" />
+                        </div>
+                    }
+                    <hr />
+                    <div class="center">
+                        @Html.ActionLink("Register as a new user", "Register")
+                    </div>
+                    <div class="center">
+                        @*@Html.ActionLink("Forgot your password?", "ForgotPassword")*@
+                    </div>
+                </div>
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </div>
+</div>

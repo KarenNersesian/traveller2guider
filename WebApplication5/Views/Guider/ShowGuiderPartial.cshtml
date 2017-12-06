@@ -1,0 +1,141 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<div class="search-box-wrapper">
+    <div class="search-box-inner">
+        <div class="container">
+            <div class="search-box map">
+                <ul class="nav nav-pills">
+                    <li class="active"><a href="#search-form-sale" data-toggle="tab">Sale</a></li>
+                </ul>
+                <hr>
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="search-form-sale">
+                        <a class="advanced-search-toggle" data-toggle="collapse" data-parent="#accordion" href="#advanced-search-sale">Advanced Sale Search <i class="fa fa-plus"></i></a>
+                        @*<form role="form" id="form-map-sale" class="form-map form-search clearfix has-dark-background"></form>*@<!-- /#form-map-sale -->
+                        @using (Html.BeginForm("ShowGuiders", "Guider", FormMethod.Get, new { role = "form", @id = "form-sidebar", @class = "form-search" }))
+                        {
+                            <div id="advanced-search-sale" class="panel-collapse collapse">
+                                <div class="advanced-search">
+                                    <header><h3>Property Features</h3></header>
+                                    <ul class="submit-features">
+                                        <li><div class="checkbox"><label><input type="checkbox">Air conditioning</label></div></li>
+                                        <li><div class="checkbox"><label><input type="checkbox">Bedding</label></div></li>
+                                        <li><div class="checkbox"><label><input type="checkbox">Heating</label></div></li>
+                                        <li><div class="checkbox"><label><input type="checkbox">Internet</label></div></li>
+                                        <li><div class="checkbox"><label><input type="checkbox">Microwave</label></div></li>
+                                        <li><div class="checkbox"><label><input type="checkbox">Smoking allowed</label></div></li>
+                                        <li><div class="checkbox"><label><input type="checkbox">Use of pool</label></div></li>
+                                        <li><div class="checkbox"><label><input type="checkbox">Toaster</label></div></li>
+                                        <li><div class="checkbox"><label><input type="checkbox">Coffee pot</label></div></li>
+                                        <li><div class="checkbox"><label><input type="checkbox">Cable TV</label></div></li>
+                                        <li><div class="checkbox"><label><input type="checkbox">Parquet</label></div></li>
+                                        <li><div class="checkbox"><label><input type="checkbox">Roof terrace</label></div></li>
+                                        <li><div class="checkbox"><label><input type="checkbox">Terrace</label></div></li>
+                                        <li><div class="checkbox"><label><input type="checkbox">Balcony</label></div></li>
+                                        <li><div class="checkbox"><label><input type="checkbox">Iron</label></div></li>
+                                        <li><div class="checkbox"><label><input type="checkbox">Hi-Fi</label></div></li>
+                                        <li><div class="checkbox"><label><input type="checkbox">Beach</label></div></li>
+                                        <li><div class="checkbox"><label><input type="checkbox">Garage</label></div></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-2 col-sm-4">
+
+                                </div>
+
+                                <div class="col-md-2 col-sm-4">
+
+                                </div>
+                                <div class="col-md-2 col-sm-4">
+                                    <div class="form-group">
+                                        <!-- id="search-box-property-id" changed with id="autocompleted" -->
+                                        <div class="form-group" id="locationField">
+                                            <input id="searchTextField" type="text" size="50" placeholder="Enter a location" autocomplete="on" />
+                                            <input type="text" id="city2" name="city2" />
+                                            <input type="text" id="cityLat" name="cityLat" />
+                                            <input type="text" id="cityLng" name="cityLng" />
+                                        </div>
+
+                                    </div><!-- /.form-group -->
+
+                                </div>
+                                @*<div class="col-md-2 col-sm-4">
+                                        <div class="form-group">
+                                            <select name="form-sale-price">
+                                                <option value="">Price</option>
+                                                <option value="1">$10,000 +</option>
+                                                <option value="2">$50,000 +</option>
+                                                <option value="3">$100,000 +</option>
+                                                <option value="4">$500,000 +</option>
+                                            </select>
+                                        </div>
+                                    </div>*@
+                                <div class="col-md-2 col-sm-4">
+                                    <div class="form-group">
+                                        @*<button id="search" type="submit" class="btn btn-default">Search Sale</button>*@
+                                        <input type="submit" class="btn btn-default" value="Search" />
+                                    </div><!-- /.form-group -->
+                                </div>
+                            </div>
+                        }
+                    </div><!-- /#search-form-rent -->
+                </div><!-- /.tab-content -->
+            </div><!-- /.search-box -->
+        </div><!-- /.container -->
+    </div><!-- /.search-box-inner -->
+    <div class="background-image"><img class="opacity-20" src="~/assets/img/searchbox-bg.jpg"></div>
+</div>
+<!--[if gt IE 8]>
+    <script type="text/javascript" src="assets/js/ie.js"></script>
+    <![endif]-->
+<!--
+<script>
+    _latitude = 48.87;
+    _longitude = 2.29;
+    createHomepageGoogleMap(_latitude,_longitude);
+    $(window).load(function(){
+        initializeOwl(false);
+    });
+</script>
+-->
+@*<script type="text/javascript">
+    function initialize() {
+        var input = document.getElementById('searchTextField');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+            var place = autocomplete.getPlace();
+            document.getElementById('city2').value = place.name;
+            document.getElementById('cityLat').value = place.geometry.location.lat();
+            document.getElementById('cityLng').value = place.geometry.location.lng();
+            //alert("This function is working!");
+            //alert(place.name);
+            // alert(place.address_components[0].long_name);
+
+        });
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>*@
+
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC34PVHithrgKTqdV4LEid9Le_-IFrZ150&libraries=places" type="text/javascript"></script>
+<script type="text/javascript">
+    function initialize() {
+        var input = document.getElementById('searchTextField');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+            var place = autocomplete.getPlace();
+            document.getElementById('city2').value = place.name;
+            document.getElementById('cityLat').value = place.geometry.location.lat();
+            document.getElementById('cityLng').value = place.geometry.location.lng();
+            //alert("This function is working!");
+            //alert(place.name);
+            // alert(place.address_components[0].long_name);
+
+        });
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
