@@ -43,33 +43,33 @@ function init() {
 
 
     //      Autocomplete
-    var input = (document.getElementById('address-map'));
-    var autocomplete2 = new google.maps.places.Autocomplete(input);
-    autocomplete2.bindTo('bounds', map);
-    google.maps.event.addListener(autocomplete2, 'place_changed', function () {
-        var place = autocomplete2.getPlace();
-        if (!place.geometry) {
-            return;
-        }
-        if (place.geometry.viewport) {
-            map.fitBounds(place.geometry.viewport);
-        } else {
-            map.setCenter(place.geometry.location);
-            map.setZoom(17);
-        }
-        marker.setPosition(place.geometry.location);
-        marker.setVisible(true);
-        $('#latitude').val(marker.getPosition().lat());
-        $('#longitude').val(marker.getPosition().lng());
-        var address = '';
-        if (place.address_components) {
-            address = [
-                (place.address_components[0] && place.address_components[0].short_name || ''),
-                (place.address_components[1] && place.address_components[1].short_name || ''),
-                (place.address_components[2] && place.address_components[2].short_name || '')
-            ].join(' ');
-        }
-    });
+    //var input = (document.getElementById('address-map'));
+    //var autocomplete2 = new google.maps.places.Autocomplete(input);
+    //autocomplete2.bindTo('bounds', map);
+    //google.maps.event.addListener(autocomplete2, 'place_changed', function () {
+    //    var place = autocomplete2.getPlace();
+    //    if (!place.geometry) {
+    //        return;
+    //    }
+    //    if (place.geometry.viewport) {
+    //        map.fitBounds(place.geometry.viewport);
+    //    } else {
+    //        map.setCenter(place.geometry.location);
+    //        map.setZoom(17);
+    //    }
+    //    marker.setPosition(place.geometry.location);
+    //    marker.setVisible(true);
+    //    $('#latitude').val(marker.getPosition().lat());
+    //    $('#longitude').val(marker.getPosition().lng());
+    //    var address = '';
+    //    if (place.address_components) {
+    //        address = [
+    //            (place.address_components[0] && place.address_components[0].short_name || ''),
+    //            (place.address_components[1] && place.address_components[1].short_name || ''),
+    //            (place.address_components[2] && place.address_components[2].short_name || '')
+    //        ].join(' ');
+    //    }
+    //});
 }
 function success(position) {
     initSubmitMap(position.coords.latitude, position.coords.longitude);

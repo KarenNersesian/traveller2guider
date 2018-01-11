@@ -22,7 +22,7 @@ namespace WebApplication5.Services
                     number = double.Parse(userInportString);
                 }
             }
-            catch (Exception e)
+            catch (Exception )
             {
                 return 0;
             }

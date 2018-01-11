@@ -175,6 +175,7 @@
     <Compile Include="Controllers\GuiderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="DAL\ApplicationDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -188,6 +189,14 @@
     <Compile Include="Migrations\201711171352376_ChangeGuiderAndTraveller.cs" />
     <Compile Include="Migrations\201711171352376_ChangeGuiderAndTraveller.Designer.cs">
       <DependentUpon>201711171352376_ChangeGuiderAndTraveller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712252354025_GuiderUpdate.cs" />
+    <Compile Include="Migrations\201712252354025_GuiderUpdate.Designer.cs">
+      <DependentUpon>201712252354025_GuiderUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712260028123_ReservationUpdate.cs" />
+    <Compile Include="Migrations\201712260028123_ReservationUpdate.Designer.cs">
+      <DependentUpon>201712260028123_ReservationUpdate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -210,17 +219,31 @@
     <Compile Include="Models\TravellerToGuiderRate.cs" />
     <Compile Include="Models\UnavailableDate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\ConcreteFileFactory.cs" />
     <Compile Include="Services\DataTypeConvert.cs" />
+    <Compile Include="Services\GuiderService.cs" />
     <Compile Include="Services\ImageFileService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\PublicProfileGuiderViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\css-input-file\component.css" />
     <Content Include="assets\css\css-input-file\demo.css" />
     <Content Include="assets\css\css-input-file\normalize.css" />
+    <Content Include="assets\css\pignose\css\calendar-style.css" />
+    <Content Include="assets\css\pignose\css\prism.css" />
+    <Content Include="assets\css\pignose\css\semantic.ui.min.css" />
+    <Content Include="assets\css\pignose\css\style.css" />
+    <Content Include="assets\css\pignose\dist\pignose.calendar.min.css" />
+    <Content Include="assets\css\pignose\fonts\icon_navs.svg" />
+    <Content Include="assets\css\pignose\fonts\pignose.calendar.svg" />
     <Content Include="assets\js\custom-account-map.js" />
     <Content Include="assets\js\js-input-file\custom-file-input.js" />
+    <Content Include="assets\js\pignose\dist\jquery.latest.min.js" />
+    <Content Include="assets\js\pignose\dist\pignose.calendar.full.min.js" />
+    <Content Include="assets\js\pignose\dist\prism.min.js" />
+    <Content Include="assets\js\pignose\dist\semantic.ui.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -232,6 +255,13 @@
     <Content Include="assets\js\jquery.slider.min.js.map">
       <DependentUpon>jquery.slider.min.js</DependentUpon>
     </Content>
+    <Content Include="assets\css\pignose\fonts\icon_navs.eot" />
+    <Content Include="assets\css\pignose\fonts\icon_navs.ttf" />
+    <Content Include="assets\css\pignose\fonts\icon_navs.woff" />
+    <Content Include="assets\css\pignose\fonts\pignose.calendar.eot" />
+    <Content Include="assets\css\pignose\fonts\pignose.calendar.ttf" />
+    <Content Include="assets\css\pignose\fonts\pignose.calendar.woff" />
+    <None Include="Properties\PublishProfiles\WebApplication520171210023712 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -648,7 +678,9 @@
     <Content Include="assets\js\waypoints.min.js" />
     <Content Include="assets\js\_owl.carousel.min.js" />
     <Content Include="assets\stylesheets\style.css" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -748,11 +780,15 @@
     <Content Include="Views\Guider\ShowGuiderPartial.cshtml" />
     <Content Include="Views\Guider\ShowGuiders.cshtml" />
     <Content Include="Views\Guider\GetGuiderProfile.cshtml" />
+    <Content Include="Views\Account\UserProfileForTraveller.cshtml" />
+    <Content Include="Views\Account\UserProfileForGuider.cshtml" />
+    <Content Include="Views\Shared\_Calendar.cshtml" />
+    <Content Include="Views\Guider\GuiderProfileCalendar.cshtml" />
+    <Content Include="Views\Reservation\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\profile\pictures\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -767,6 +803,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711171352376_ChangeGuiderAndTraveller.resx">
       <DependentUpon>201711171352376_ChangeGuiderAndTraveller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712252354025_GuiderUpdate.resx">
+      <DependentUpon>201712252354025_GuiderUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712260028123_ReservationUpdate.resx">
+      <DependentUpon>201712260028123_ReservationUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

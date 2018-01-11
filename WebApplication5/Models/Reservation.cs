@@ -25,6 +25,9 @@ namespace WebApplication5.Models
         public DateTime ReservationDate { get; set; }
 
         [DataType(DataType.DateTime)]
+        public DateTime ReservationDateStart { get; set; }
+
+        [DataType(DataType.DateTime)]
         public DateTime ExpirationDate { get; set; }
 
         public CreditCardType? CreditCardType { get; set; }

@@ -1,10 +1,15 @@
-﻿@model WebApplication5.Models.Guider
+﻿@model WebApplication5.ViewModels.PublicProfileGuiderViewModel
 @using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "GetGuiderProfile";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int overallRate = (int)Math.Round(@Model.OverralRating);
 }
+@Styles.Render("~/assets/css/css-input-file/component.css")
+@Styles.Render("~/assets/css/css-input-file/demo.css")
+
 <h2>@ViewBag.Title</h2>
+
 <div id="page-content">
     <!-- Breadcrumb -->
     <div class="container">
@@ -22,7 +27,7 @@
                 <!--Here Start-->
                 <section id="property-detail">
                     <header class="property-title">
-                        <h1>@Model.ApplicationUser.Name @Model.ApplicationUser.Lastname</h1> <!-- Name - Lastname-->
+                        <h1>@Model.Guider.ApplicationUser.Name @Model.Guider.ApplicationUser.Lastname</h1> <!-- Name - Lastname-->
                         <figure>Golden Valley, MN 55427</figure> <!-- Adress -->
                         <span class="actions">
                             <!--<a href="#" class="fa fa-print"></a>-->
@@ -37,26 +42,27 @@
                         </span>
                     </header>
                     <section id="property-gallery">
-                        <div class="owl-carousel property-carousel">
-                            <div class="property-slide">
-                                <a href="/assets/img/properties/property-detail-01.jpg" class="image-popup">
-                                    <div class="overlay"><h3>Front View</h3></div>
-                                    <img alt="" src="~/assets/img/properties/property-detail-01.jpg"/>
-                                </a>
-                            </div><!-- /.property-slide -->
-                            <div class="property-slide">
-                                <a href="/assets/img/properties/property-detail-02.jpg" class="image-popup">
-                                    <div class="overlay"><h3>Bedroom</h3></div>
-                                    <img alt="" src="~/assets/img/properties/property-detail-02.jpg"/>
-                                </a>
-                            </div><!-- /.property-slide -->
-                            <div class="property-slide">
-                                <a href="/assets/img/properties/property-detail-03.jpg" class="image-popup">
-                                    <div class="overlay"><h3>Bathroom</h3></div>
-                                    <img alt="" src="~/assets/img/properties/property-detail-03.jpg"/>
-                                </a>
-                            </div><!-- /.property-slide -->
-                        </div><!-- /.property-carousel -->
+                        <img src="~/assets/img/properties/property-detail-01.jpg" width="800" />
+                        @*<div class="owl-carousel property-carousel">
+                        <div class="property-slide">
+                            <a href="/assets/img/properties/property-detail-01.jpg" class="image-popup">
+                                <div class="overlay"><h3>Front View</h3></div>
+                                <img alt="" src="~/assets/img/properties/property-detail-01.jpg"/>
+                            </a>
+                        </div><!-- /.property-slide -->
+                        <div class="property-slide">
+                            <a href="/assets/img/properties/property-detail-02.jpg" class="image-popup">
+                                <div class="overlay"><h3>Bedroom</h3></div>
+                                <img alt="" src="~/assets/img/properties/property-detail-02.jpg"/>
+                            </a>
+                        </div><!-- /.property-slide -->
+                        <div class="property-slide">
+                            <a href="/assets/img/properties/property-detail-03.jpg" class="image-popup">
+                                <div class="overlay"><h3>Bathroom</h3></div>
+                                <img alt="" src="~/assets/img/properties/property-detail-03.jpg"/>
+                            </a>
+                        </div><!-- /.property-slide -->
+                    </div><!-- /.property-carousel -->*@
                     </section>
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
@@ -80,11 +86,15 @@
                                     <dt>Garages:</dt>
                                     <dd>2</dd>
                                     <dt>Rating:</dt>
-                                    <dd><div class="rating rating-overall" data-score="4"></div></dd>
+                                    <dd><div class="rating rating-overall" data-score="@overallRate"></div></dd>
                                 </dl>
                             </section><!-- /#quick-summary -->
                         </div><!-- /.col-md-4 -->
                         <div class="col-md-8 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-5 col-sm-offset-3 col-sm-5">
+                                </div><!-- /.col-md-5 -->
+                            </div><!-- /.row -->
                             <section id="description">
                                 <header><h2>Description about my service</h2></header>
                                 <p>
@@ -104,7 +114,7 @@
                                 </p>
                             </section><!-- /#description -->
                             <section id="property-features">
-                                <header><h2>Categorised things</h2></header>
+                                <header><h2>What will you learn?</h2></header>
                                 <ul class="list-unstyled property-features-list">
                                     <li>Sauna</li>
                                     <li>Fireplace or fire pit</li>
@@ -116,194 +126,357 @@
                                     <li>Concrete Flooring</li>
                                 </ul>
                             </section><!-- /#property-features -->
-                            <section id="property-map">
-                                <header><h2>Map</h2></header>
-                                <div class="property-detail-map-wrapper">
-                                    <div class="property-detail-map" id="property-detail-map"></div>
+                            @*<section id="property-map">
+                            <header><h2>Map</h2></header>
+                            <div class="property-detail-map-wrapper">
+                                <div class="property-detail-map" id="property-detail-map"></div>
+                            </div>
+                        </section>*@<!-- /#property-map -->
+                            <section class="block" id="meeting-map">
+                                <header><h2>Part of meeting</h2></header>
+                                <div class="center">
+                                    <div id="submit-map"></div>
                                 </div>
-                            </section><!-- /#property-map -->
+                            </section>
                             <section id="property-rating">
                                 <header><h2>Rating</h2></header>
                                 <div class="clearfix">
                                     <aside>
-                                        <header>Your Rating</header>
-                                        <div class="rating rating-user">
-                                            <div class="inner"></div>
-                                        </div>
+                                        @*<header>Your Rating</header>
+                                    <div class="rating rating-user">
+                                        <div class="inner"></div>
+                                    </div>*@
                                     </aside>
                                     <figure>
                                         <header>Overall Rating</header>
-                                        <div class="rating rating-overall" data-score="4"></div>
+                                        <div class="rating rating-overall" data-score="@overallRate"></div>
                                     </figure>
                                 </div>
-                                <div class="rating-form">
-                                    <header>Thank you! Please describe your rating</header>
-                                    <form role="form" id="form-rating" method="post" class="clearfix">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="form-rating-name">Your Name<em>*</em></label>
-                                                    <input type="text" class="form-control" id="form-rating-name" name="form-rating-name" required>
-                                                </div><!-- /.form-group -->
-                                            </div><!-- /.col-md-6 -->
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="form-rating-email">Your Email<em>*</em></label>
-                                                    <input type="email" class="form-control" id="form-rating-email" name="form-rating-email" required>
-                                                </div><!-- /.form-group -->
-                                            </div><!-- /.col-md-6 -->
-                                        </div><!-- /.row -->
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label for="form-rating-message">Your Message<em>*</em></label>
-                                                    <textarea class="form-control" id="form-rating-message" rows="6" name="form-rating-message" required></textarea>
-                                                </div><!-- /.form-group -->
-                                            </div><!-- /.col-md-12 -->
-                                        </div><!-- /.row -->
-                                        <div class="form-group">
-                                            <button type="submit" class="btn pull-right btn-default" id="form-rating-submit">Send a Message</button>
-                                        </div><!-- /.form-group -->
-                                        <div id="form-rating-status"></div>
-                                    </form><!-- /#form-contact -->
-                                </div><!-- /.rating-form -->
+
                             </section><!-- /#property-rating -->
                         </div><!-- /.col-md-8 -->
                         <div class="col-md-12 col-sm-12">
-                            <section id="contact-agent">
-                                <header><h2>Contact Agent</h2></header>
-                                <div class="row">
-                                    <section class="agent-form">
-                                        <div class="col-md-7 col-sm-12">
-                                            <aside class="agent-info clearfix">
-                                                <figure><a href="agent-detail.html"><img alt="" src="/assets/img/agent-01.jpg"></a></figure>
-                                                <div class="agent-contact-info">
-                                                    <h3>Robert Farley</h3>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et dui vestibulum,
-                                                        bibendum purus sit amet, vulputate mauris. Ut adipiscing gravida tincidunt.
-                                                        Duis euismod placerat rhoncus.
-                                                    </p>
-                                                    <dl>
-                                                        <dt>Phone:</dt>
-                                                        <dd>(123) 456 789</dd>
-                                                        <dt>Mobile:</dt>
-                                                        <dd>888 123 456 789</dd>
-                                                        <dt>Email:</dt>
-                                                        <dd><a href="mailto:#">john.doe@example.com</a></dd>
-                                                        <dt>Skype:</dt>
-                                                        <dd>john.doe</dd>
-                                                    </dl>
-                                                    <hr>
-                                                </div>
-                                            </aside><!-- /.agent-info -->
-                                        </div><!-- /.col-md-7 -->
-                                        <div class="col-md-5 col-sm-12">
-                                            <div class="agent-form">
-                                                <form role="form" id="form-contact-agent" method="post" class="clearfix">
-                                                    <div class="form-group">
-                                                        <label for="form-contact-agent-name">Your Name<em>*</em></label>
-                                                        <input type="text" class="form-control" id="form-contact-agent-name" name="form-contact-agent-name" required>
-                                                    </div><!-- /.form-group -->
-                                                    <div class="form-group">
-                                                        <label for="form-contact-agent-email">Your Email<em>*</em></label>
-                                                        <input type="email" class="form-control" id="form-contact-agent-email" name="form-contact-agent-email" required>
-                                                    </div><!-- /.form-group -->
-                                                    <div class="form-group">
-                                                        <label for="form-contact-agent-message">Your Message<em>*</em></label>
-                                                        <textarea class="form-control" id="form-contact-agent-message" rows="2" name="form-contact-agent-message" required></textarea>
-                                                    </div><!-- /.form-group -->
-                                                    <div class="form-group">
-                                                        <button type="submit" class="btn pull-right btn-default" id="form-contact-agent-submit">Send a Message</button>
-                                                    </div><!-- /.form-group -->
-                                                    <div id="form-contact-agent-status"></div>
-                                                </form><!-- /#form-contact -->
-                                            </div><!-- /.agent-form -->
-                                        </div><!-- /.col-md-5 -->
-                                    </section><!-- /.agent-form -->
-                                </div><!-- /.row -->
-                            </section><!-- /#contact-agent -->
+
                             <hr class="thick">
                             <!-- Future mode -->
                             <!-- Code will be posted -->
                             <!-- End Future mode-->
                             <!-- <hr class="thick"> -->
-                            <section id="comments">
-                                <header><h2 class="no-border">Comments</h2></header>
-                                <ul class="comments">
-                                    <li class="comment">
-                                        <figure>
-                                            <div class="image">
-                                                <img alt="" src="/assets/img/client-01.jpg">
-                                            </div>
-                                        </figure>
-                                        <div class="comment-wrapper">
-                                            <div class="name pull-left">Catherine Brown</div>
-                                            <span class="date pull-right"><span class="fa fa-calendar"></span>12.05.2014</span>
-                                            <div class="rating rating-individual" data-score="4"></div>
-                                            <p>
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vestibulum, sem ut sollicitudin consectetur,
-                                                augue diam ornare massa, ac vehicula leo turpis eget purus. Nunc pellentesque vestibulum mauris, eget suscipit
-                                                mauris imperdiet vel. Nulla et massa metus. Nam porttitor quam eget ante elementum consectetur. Aenean ac nisl
-                                                et nulla placerat suscipit eu a mauris. Curabitur quis augue condimentum, varius mi in, ultricies velit.
-                                                Suspendisse potenti.
-                                            </p>
-                                            <a href="#" class="reply"><span class="fa fa-reply"></span>Reply</a>
-                                            <hr>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <ul class="comments-child">
+                            @if (@Model.TravellerToGuiderRates != null)
+                            {
+                                <section id="comments">
+                                    <header><h2 class="no-border">Comments</h2></header>
+                                    <ul class="comments">
+                                        @foreach (var item in Model.TravellerToGuiderRates)
+                                        {
                                             <li class="comment">
                                                 <figure>
                                                     <div class="image">
-                                                        <img alt="" src="/assets/img/agent-01.jpg">
+                                                        <img alt="" src="/assets/img/user-02.jpg">
                                                     </div>
                                                 </figure>
                                                 <div class="comment-wrapper">
-                                                    <div class="name">John Doe</div>
-                                                    <span class="date"><span class="fa fa-calendar"></span>24.06.2014</span>
-                                                    <div class="rating rating-individual" data-score="3"></div>
+                                                    <div class="name">@item.Traveller.ApplicationUser.Name @item.Traveller.ApplicationUser.Lastname</div>
+                                                    <div class="rating rating-individual" data-score="@item.Rate"></div>
                                                     <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vestibulum, sem ut sollicitudin consectetur,
-                                                        augue diam ornare massa, ac vehicula leo turpis eget purus. Nunc pellentesque vestibulum mauris, eget suscipit
-                                                        mauris.
+                                                        @item.Comment
                                                     </p>
-                                                    <a href="#" class="reply"><span class="fa fa-reply"></span>Reply</a>
+                                                    <span><i>@item.Rate_Entry.ToString("dd/MM/yyyy")</i></span>
                                                     <hr>
                                                 </div>
                                             </li>
-                                        </ul>
-                                    </li>
-                                    <li class="comment">
-                                        <figure>
-                                            <div class="image">
-                                                <img alt="" src="/assets/img/user-02.jpg">
-                                            </div>
-                                        </figure>
-                                        <div class="comment-wrapper">
-                                            <div class="name">John Doe</div>
-                                            <span class="date"><span class="fa fa-calendar"></span>08.05.2014</span>
-                                            <div class="rating rating-individual" data-score="5"></div>
-                                            <p>
-                                                Quisque iaculis neque at dui cursus posuere. Sed tristique pharetra orci, eu malesuada ante tempus nec.
-                                                Phasellus enim odio, facilisis et ante vel, tempor congue sapien. Praesent eget ligula
-                                                eu libero cursus facilisis vel non arcu. Sed vitae quam enim.
-                                            </p>
-                                            <a href="#" class="reply"><span class="fa fa-reply"></span>Reply</a>
-                                            <hr>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </section>
+                                        }
+                                    </ul>
+                                </section>
+                            }
+
                         </div><!-- /.col-md-12 -->
                     </div><!-- /.row -->
                 </section><!-- /#property-detail -->
             </div><!-- /.col-md-9 -->
             <!-- end Property Detail Content -->
             <!-- sidebar -->
+            <div class="col-md-3 col-sm-3">
+                <section id="sidebar">
+                    <aside id="edit-search">
+                        <header><h3>Search Properties</h3></header>
+                        <!-- Form Request Guid -->
+                        <form role="form" id="form-sidebar" class="form-search" action="properties-listing.html">
+                            <!-- Calendar for guid -->
+                            <div class="form-group">
+                                @Html.Partial("GuiderProfileCalendar", 72.05);
+                            </div> <!-- /. Calendar for guid -->
+                            <div class="form-group">
+                                <select name="visitor">
+                                    <option value="">Visitor</option>
+                                    <option value="1">1 Person</option>
+                                    <option value="2">2 People</option>
+                                    <option value="3">3 People</option>
+                                    <option value="4">4 People</option>
+                                    <option value="5">5+ People</option>
+                                </select>
+                            </div><!-- /.form-group -->
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default">Request!</button>
+                            </div><!-- /.form-group -->
+                        </form><!-- /#form-map -->
+                        <!-- /.Form Request Guid -->
+                    </aside><!-- /#edit-search -->
+                    <aside id="featured-properties">
+                        <header><h3>Featured Properties</h3></header>
+                        <div class="property small">
+                            <a href="property-detail.html">
+                                <div class="property-image">
+                                    <img alt="" src="assets/img/properties/property-06.jpg">
+                                </div>
+                            </a>
+                            <div class="info">
+                                <a href="property-detail.html"><h4>2186 Rinehart Road</h4></a>
+                                <figure>Doral, FL 33178 </figure>
+                                <div class="tag price">$ 72,000</div>
+                            </div>
+                        </div><!-- /.property -->
+                        <div class="property small">
+                            <a href="property-detail.html">
+                                <div class="property-image">
+                                    <img alt="" src="assets/img/properties/property-09.jpg">
+                                </div>
+                            </a>
+                            <div class="info">
+                                <a href="property-detail.html"><h4>2479 Murphy Court</h4></a>
+                                <figure>Minneapolis, MN 55402</figure>
+                                <div class="tag price">$ 36,000</div>
+                            </div>
+                        </div><!-- /.property -->
+                        <div class="property small">
+                            <a href="property-detail.html">
+                                <div class="property-image">
+                                    <img alt="" src="assets/img/properties/property-03.jpg">
+                                </div>
+                            </a>
+                            <div class="info">
+                                <a href="property-detail.html"><h4>1949 Tennessee Avenue</h4></a>
+                                <figure>Minneapolis, MN 55402</figure>
+                                <div class="tag price">$ 128,600</div>
+                            </div>
+                        </div><!-- /.property -->
+                    </aside><!-- /#featured-properties -->
+                    <aside id="our-guides">
+                        <header><h3>Our Guides</h3></header>
+                        <a href="#" class="universal-button">
+                            <figure class="fa fa-home"></figure>
+                            <span>Buying Guide</span>
+                            <span class="arrow fa fa-angle-right"></span>
+                        </a><!-- /.universal-button -->
+                        <a href="#" class="universal-button">
+                            <figure class="fa fa-umbrella"></figure>
+                            <span>Right Insurance for You</span>
+                            <span class="arrow fa fa-angle-right"></span>
+                        </a><!-- /.universal-button -->
+                    </aside><!-- /#our-guide -->
+                </section><!-- /#sidebar -->
+            </div><!-- /.col-md-3 -->
             <!-- end Sidebar -->
         </div><!-- /.row -->
     </div><!-- /.container -->
 </div>
 <!-- end Page Content -->
+
+@section MapScript{
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC34PVHithrgKTqdV4LEid9Le_-IFrZ150&libraries=places&callback=initAutocomplete&language=en"
+            async defer></script>
+}
+
+@{
+    string userLatitude = Convert.ToString(Model.Guider.Latitude).Replace(',', '.');
+    string userLongitude = Convert.ToString(Model.Guider.Longitude).Replace(',', '.');
+}
+
+<script type="text/javascript">
+    var temp_latitude = @userLatitude;
+    var temp_logitude = @userLongitude;
+    var _latitude = parseFloat(temp_latitude);
+    var _longitude = parseFloat(temp_logitude);
+
+    google.maps.event.addDomListener(window, 'load', init);
+
+    function init() {
+        // Basic options for a simple Google Map
+        // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+
+        var mapOptions = {
+            // How zoomed in you want the map to start at (always required)
+            zoom: 11,
+            disableDefaultUI: false,
+            // The latitude and longitude to center the map (always required)
+            center: new google.maps.LatLng(_latitude, _longitude), // New York
+
+            // How you would like to style the map.
+            // This is where you would paste any style found on Snazzy Maps.
+            styles: [{ "featureType": "administrative", "elementType": "labels.text.fill", "stylers": [{ "color": "#9b9b9b" }] }, { "featureType": "administrative", "elementType": "labels.text.stroke", "stylers": [{ "color": "#ffffff" }] }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "hue": "#ffbf00" }, { "saturation": "-100" }, { "lightness": "27" }] }, { "featureType": "landscape", "elementType": "geometry.fill", "stylers": [{ "color": "#f0f0f0" }] }, { "featureType": "landscape.man_made", "elementType": "geometry.fill", "stylers": [{ "color": "#f0f0f0" }, { "visibility": "on" }] }, { "featureType": "landscape.man_made", "elementType": "geometry.stroke", "stylers": [{ "color": "#3d68eb" }, { "saturation": "-73" }, { "lightness": "71" }, { "visibility": "on" }] }, { "featureType": "poi", "elementType": "geometry.fill", "stylers": [{ "hue": "#00ff4e" }, { "saturation": "-30" }] }, { "featureType": "poi.attraction", "elementType": "geometry.fill", "stylers": [{ "hue": "#00fff1" }, { "saturation": "-39" }] }, { "featureType": "poi.attraction", "elementType": "labels", "stylers": [{ "hue": "#003fff" }] }, { "featureType": "poi.business", "elementType": "labels", "stylers": [{ "hue": "#003fff" }, { "saturation": "-50" }, { "lightness": "0" }] }, { "featureType": "poi.government", "elementType": "labels", "stylers": [{ "hue": "#003fff" }] }, { "featureType": "poi.medical", "elementType": "geometry.fill", "stylers": [{ "hue": "#0071ff" }] }, { "featureType": "poi.medical", "elementType": "labels", "stylers": [{ "hue": "#003fff" }, { "saturation": "-73" }] }, { "featureType": "poi.park", "elementType": "geometry.fill", "stylers": [{ "hue": "#00ff4e" }, { "saturation": "-30" }] }, { "featureType": "poi.park", "elementType": "labels.text", "stylers": [{ "visibility": "on" }, { "hue": "#00ff95" }, { "saturation": "-53" }] }, { "featureType": "poi.place_of_worship", "elementType": "geometry.fill", "stylers": [{ "hue": "#00ff4e" }] }, { "featureType": "poi.place_of_worship", "elementType": "labels", "stylers": [{ "hue": "#003fff" }] }, { "featureType": "poi.school", "elementType": "geometry.fill", "stylers": [{ "hue": "#ff0000" }, { "saturation": "-100" }, { "lightness": "12" }] }, { "featureType": "poi.school", "elementType": "labels", "stylers": [{ "hue": "#003fff" }] }, { "featureType": "poi.sports_complex", "elementType": "geometry.fill", "stylers": [{ "hue": "#00ff4e" }, { "saturation": "-30" }] }, { "featureType": "poi.sports_complex", "elementType": "labels", "stylers": [{ "hue": "#003fff" }] }, { "featureType": "road", "elementType": "labels.text.fill", "stylers": [{ "color": "#9b9b9b" }] }, { "featureType": "road", "elementType": "labels.icon", "stylers": [{ "hue": "#00a3ff" }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "saturation": "17" }, { "lightness": "15" }, { "hue": "#0095ff" }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "hue": "#0095ff" }] }, { "featureType": "transit", "elementType": "labels", "stylers": [{ "hue": "#002bff" }, { "saturation": "-100" }, { "gamma": "1.00" }] }, { "featureType": "transit", "elementType": "labels.text.fill", "stylers": [{ "color": "#9b9b9b" }] }, { "featureType": "transit", "elementType": "labels.text.stroke", "stylers": [{ "color": "#ffffff" }] }, { "featureType": "water", "elementType": "geometry.fill", "stylers": [{ "color": "#98aef2" }] }, { "featureType": "water", "elementType": "labels.text", "stylers": [{ "hue": "#00b1ff" }, { "lightness": "33" }] }, { "featureType": "water", "elementType": "labels.text.fill", "stylers": [{ "color": "#233d8d" }] }]
+        };
+
+        // Get the HTML DOM element that will contain your map
+        // We are using a div with id="map" seen below in the <body>
+        var mapElement = document.getElementById('submit-map');
+
+        // Create the Google Map using our element and options defined above
+        var map = new google.maps.Map(mapElement, mapOptions);
+
+        // Let's also add a marker while we're at it
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(_latitude, _longitude),
+            map: map,
+            title: 'Hi, I will meet you here!',
+            icon: '/assets/img/marker.png',
+            labelAnchor: new google.maps.Point(50, 0),
+            draggable: false
+        });
+
+        //Reverse Geolocation ti find out the street adress
+        //var geocoder = new google.maps.Geocoder;
+        //var latlng = {lat: _latitude, lng: _longitude};
+        //geocoder.geocode({'location': latlng}, function(results, status) {
+        //    if (status === 'OK') {
+        //        if (results[0]) {
+        //            $('#address-map').val(results[0].formatted_address);
+        //        } else {
+        //            window.alert('No results found');
+        //        }
+        //    } else {
+        //        window.alert('Geocoder failed due to: ' + status);
+        //    }
+        //});
+
+        $('#submit-map').removeClass('fade-map');
+        google.maps.event.addListener(marker, "mouseup", function (event) {
+            var latitude = this.position.lat();
+            var longitude = this.position.lng();
+            $('#latitude').val(this.position.lat());
+            $('#longitude').val(this.position.lng());
+        });
+    }
+</script>
+
+@section PublicProfileCalendar{
+    @Scripts.Render("~/assets/js/pignose/dist/pignose.calendar.full.min.js")
+    <script type="text/javascript">
+        //<![CDATA[
+        $(function () {
+            $('#wrapperCalendar .version strong').text('v' + $.fn.pignoseCalendar.version);
+
+            function onSelectHandler(date, context) {
+
+                var $element = context.element;
+                var $calendar = context.calendar;
+                var $box = $element.siblings('.box').show();
+                var text = 'You selected date ';
+
+                if (date[0] !== null) {
+                    text += date[0].format('YYYY-MM-DD');
+                }
+
+                if (date[0] !== null && date[1] !== null) {
+                    text += ' ~ ';
+                }
+                else if (date[0] === null && date[1] == null) {
+                    text += 'nothing';
+                }
+
+                if (date[1] !== null) {
+                    text += date[1].format('YYYY-MM-DD');
+                }
+                $box.text(text);
+            }
+
+            function onApplyHandler(date, context) {
+
+                var $element = context.element;
+                var $calendar = context.calendar;
+                var $box = $element.siblings('.box').show();
+                var text = 'You applied date ';
+
+                if (date[0] !== null) {
+                    text += date[0].format('YYYY-MM-DD');
+                }
+
+                if (date[0] !== null && date[1] !== null) {
+                    text += ' ~ ';
+                }
+                else if (date[0] === null && date[1] == null) {
+                    text += 'nothing';
+                }
+
+                if (date[1] !== null) {
+                    text += date[1].format('YYYY-MM-DD');
+                }
+                //'Url.Action("AddNonWorkingDay", "Account")'
+
+                //Asynchronus Ajax Post
+                $.ajax({
+                    type: 'POST',
+                    url: '/Account/AddNonWorkingDay',
+                    data: { dateFrom: date[0].format("YYYY-MM-DD").toString(), dateTo: date[1].format("YYYY-MM-DD").toString() },
+                    contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                    success: function (result) {
+                        // Result
+
+                        alert(result);
+                    },
+                    error: function (response) {
+                        //do your own thing
+                        //alert("fail");
+                    }
+                });
+
+                $box.text(text);
+            }
+
+            // Input Calendar
+            $('.input-calendar').pignoseCalendar({
+                apply: onApplyHandler,
+                buttons: true, // It means you can give bottom button controller to the modal which be opened when you click.
+                multiple: true,
+                select: onSelectHandler,
+                selectOver: true,
+            });
+
+            // Disabled date settings.
+            (function () {
+                // IIFE Closure
+                var times = 30;
+                var disabledDates = [];
+                for (var i = 0; i < times; /* Do not increase index */) {
+                    var year = moment().year();
+                    var month = 0;
+                    var day = parseInt(Math.random() * 364 + 1);
+                    var date = moment().year(year).month(month).date(day).format('YYYY-MM-DD');
+                    if ($.inArray(date, disabledDates) === -1) {
+                        disabledDates.push(date);
+                        i++;
+                    }
+                }
+
+                disabledDates.sort();
+
+                var $dates = $('.disabled-dates-calendar').siblings('.guide').find('.guide-dates');
+                for (var idx in disabledDates) {
+                    $dates.append('<span>' + disabledDates[idx] + '</span>');
+                }
+
+                $('.disabled-dates-calendar').pignoseCalendar({
+                    select: onSelectHandler,
+                    disabledDates: disabledDates
+                });
+            }());
+
+
+
+            // This use for DEMO page tab component.
+            $('.menu .item').tab();
+        });
+        //]]>
+    </script>
+
+}
+

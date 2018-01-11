@@ -10,15 +10,14 @@ using WebApplication5.Services;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
-using WebApplication5.DAL;
-using System.Device.Location;
 using PagedList;
+using WebApplication5.ViewModels;
 
 namespace WebApplication5.Controllers
 {
     public class GuiderController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private GuiderService guiderService = new GuiderService();
 
         // GET: Guider
         public ActionResult Index()
@@ -33,15 +32,9 @@ namespace WebApplication5.Controllers
         {
             ViewBag.CurrentLat = cityLat;
             ViewBag.CurrentLng = cityLng;
-            double lat = DataTypeConvert.ConvertToDouble(cityLat);
-            double lon = DataTypeConvert.ConvertToDouble(cityLng);
-            GeoCoordinate geoCoordinateFrom = new GeoCoordinate(lat, lon);
 
-            var nearbyGuiders = (from guider in db.Guiders.AsEnumerable()
-                                 let distance = geoCoordinateFrom.GetDistanceTo(new GeoCoordinate(guider.Latitude.Value, guider.Longitude.Value))
-                                 where distance <= 100000
-                                 orderby distance ascending
-                                 select guider).ToList();
+            var nearbyGuiders = guiderService.ShowGuiders(cityLat, cityLng, page);
+
             int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View("ShowGuiders", nearbyGuiders.ToPagedList(pageNumber, pageSize));
@@ -52,22 +45,37 @@ namespace WebApplication5.Controllers
         [HttpGet] 
         public ActionResult GetGuiderProfile(string guiderId)
         {
+            PublicProfileGuiderViewModel publicProfileGuider = new PublicProfileGuiderViewModel();
+            List<TravellerToGuiderRate> rates = new List<TravellerToGuiderRate>();
             if (guiderId == null)
             {
                 // return View("Error");
             }
-            Guider selectedGuider = new Guider();
+
             try
             {
-                selectedGuider = db.Guiders.Find(guiderId);
+                publicProfileGuider.Guider = guiderService.GetGuider(guiderId);
+                rates = guiderService.GetRatesOfSpecificGuider(guiderId);
+                int sum = 0;
+                if(rates.Count != 0)
+                {
+                    foreach (var item in rates)
+                    {
+                        sum += item.Rate;
+                    }
+                    publicProfileGuider.OverralRating = sum / rates.Count;
+                    publicProfileGuider.TravellerToGuiderRates = rates;
+                }
+                else
+                {
+                    publicProfileGuider.OverralRating = 0;
+                }
             }
             catch (Exception e)
             {
-                //return Error("View");
+                return RedirectToAction("Index", "Home");
             }
-            string omega = guiderId;
-
-            return View("GetGuiderProfile", selectedGuider);
+            return View("GetGuiderProfile", publicProfileGuider);
         }
 
         ////

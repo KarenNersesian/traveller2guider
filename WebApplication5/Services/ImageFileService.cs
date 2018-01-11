@@ -15,7 +15,7 @@ namespace WebApplication5.Services
         private string contentType;
         private string pathForHtmlCode;
         private int contentLength;
-
+        
         public void SaveUserFileOnDirectory(HttpPostedFileBase userFile, HttpServerUtilityBase server, string directory, string fileNameId)
         {
             contentLength = userFile.ContentLength;

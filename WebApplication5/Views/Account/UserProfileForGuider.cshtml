@@ -1,9 +1,9 @@
 ﻿@model WebApplication5.Models.ApplicationUser
 @{
-    ViewBag.Title = "UserProfile";
+    ViewBag.Title = "UserProfileForGuider";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
 @Styles.Render("~/assets/css/css-input-file/component.css")
 @Styles.Render("~/assets/css/css-input-file/demo.css")
 
@@ -26,9 +26,9 @@
                         <header><h3>Account</h3></header>
                         <aside>
                             <ul class="sidebar-navigation">
-                                <li class="active"><a href="@Url.Action("UserProfile", "Account")"><i class="fa fa-user"></i><span>Profile</span></a></li>
-                                <li><a href="@Url.Action("UserProfile", "Account")"><i class="fa fa-home"></i><span>My Resarvation List</span></a></li>
-                                <li><a href="@Url.Action("UserProfile", "Account")"><i class="fa fa-heart"></i><span>My Favourite Guiders</span></a></li>
+                                <li class="active"><a href="@Url.Action("UserProfileForGuider", "Account")"><i class="fa fa-user"></i><span>Profile</span></a></li>
+                                <li><a href="@Url.Action("UserProfileForGuider", "Account")"><i class="fa fa-home"></i><span>My Resarvation List</span></a></li>
+                                <li><a href="@Url.Action("UserProfileForGuider", "Account")"><i class="fa fa-heart"></i><span>My Favourite Guiders</span></a></li>
                             </ul>
                         </aside>
                     </section><!-- /#sidebar -->
@@ -45,101 +45,14 @@
                                     {
                                         <img alt="" class="image" src="@Url.Content(Model.Guider.Image)" />
                                     }
-                                    else if (User.IsInRole("Traveller") && Model.Traveller.Image != null)
-                                    {
-                                        <img alt="" class="image" src="@Url.Content(Model.Traveller.Image)" />
-                                    }
                                     else
                                     {
                                         <img alt="" class="image" src="~/assets/img/agent-01.jpg" />
                                     }
                                 </div>
                                 <div class="col-md-9 col-sm-9">
-                                    @if (User.IsInRole("Traveller"))
-                                    {
-                                        using (Html.BeginForm("TravellerProfilePost", "Account", FormMethod.Post, new { role = " form", id = "form-account-profile", enctype = "multipart/form-data" }))
-                                        {
-                                            @Html.AntiForgeryToken()
-                                            <section id="contact">
-                                                <h3>Contact</h3>
-                                                <dl class="contact-fields">
-                                                    <dt>@Html.Label("Your Name:", new { @for = "form-account-name" })</dt>
-                                                    <dd>
-                                                        <div class="form-group">
-                                                            @Html.TextBoxFor(m => m.Name, new { id = "form-account-name", @class = "form-control", name = "form-account-name" })
-                                                        </div><!-- /.form-group -->
-                                                    </dd>
-
-                                                    <dt>@Html.Label("Your Last Name:", new { @for = "form-account-lastName" })</dt>
-                                                    <dd>
-                                                        <div class="form-group">
-                                                            @Html.TextBoxFor(m => m.Lastname, new { id = "form-account-LastName", @class = "form-control", name = "form-account-lastName" })
-                                                        </div><!-- /.form-group -->
-                                                    </dd>
-
-                                                    <dt>@Html.Label("Email:", new { @for = "form-account-email" })</dt>
-                                                    <dd>
-                                                        <div class="form-group">
-                                                            @Html.TextBoxFor(m => m.Email, new { id = "form-account-email", @class = "form-control", name = "form-account-email" })
-                                                        </div><!-- /.form-group -->
-                                                    </dd>
-
-                                                    <dt>@Html.Label("Country:", new { @for = "form-account-country" })</dt>
-                                                    <dd>
-                                                        <div class="form-group">
-                                                            @Html.TextBoxFor(m => m.Traveller.Country, new { id = "form-account-country", @class = "form-control", name = "form-account-country" })
-                                                        </div><!-- /.form-group -->
-                                                    </dd>
-
-                                                    <dt>@Html.Label("City:", new { @for = "form-account-city" })</dt>
-                                                    <dd>
-                                                        <div class="form-group">
-                                                            @Html.TextBoxFor(m => m.Traveller.City, new { id = "form-account-city", @class = "form-control", name = "form-account-city" })
-                                                        </div><!-- /.form-group -->
-                                                    </dd>
-
-                                                    <dt>@Html.Label("Adress:", new { @for = "form-account-adress" })</dt>
-                                                    <dd>
-                                                        <div class="form-group">
-                                                            @Html.TextBoxFor(m => m.Traveller.Adress, new { id = "form-account-adress", @class = "form-control", name = "form-account-adress" })
-                                                        </div><!-- /.form-group -->
-                                                    </dd>
-
-                                                    <dt>@Html.Label("Skype:", new { @for = "form-account-skype" })</dt>
-                                                    <dd>
-                                                        <div class="form-group">
-                                                            @Html.TextBoxFor(m => m.Traveller.Skype, new { id = "form-account-skype", @class = "form-control", name = "form-account-skype" })
-                                                        </div><!-- /.form-group -->
-                                                    </dd>
-                                                </dl>
-                                            </section>
-                                            <section id="about-me">
-                                                <h3>About Me</h3>
-                                                <div class="form-group">
-                                                    @Html.TextAreaFor(m => m.Traveller.AboutMe, new { @class = "form-control", id = "form-contact-agent-message", name = "form-contact-agent-message" })
-                                                </div><!-- /.form-group -->
-                                            </section>
-
-                                            <section class="block" id="gallery">
-                                                <header><h2>Profile Picture</h2></header>
-                                                <div class="center">
-                                                    <div class="form-group">
-                                                        <input name="userFile" id="userFile" type="file" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" multiple /><label for="userFile"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z" /></svg> <span>Choose a file&hellip;</span></label>
-                                                        <figure class="note"><strong>Hint:</strong> You can upload all images at once!</figure>
-                                                    </div>
-                                                </div>
-                                            </section>
-
-                                            <section id="social">
-                                                <div class="form-group clearfix">
-                                                    <button type="submit" class="btn pull-right btn-default" id="account-submit">Save Changes</button>
-                                                </div><!-- /.form-group -->
-                                            </section>
-                                        }
-                                    }
-                                    else if (User.IsInRole("Guider"))
-                                    {
-                                        using (Html.BeginForm("GuiderProfilePost", "Account", FormMethod.Post, new { role = "form", id = "form-account-profile", enctype = "multipart/form-data" }))
+                                        @Html.Partial("_Calendar")
+                                        @using (Html.BeginForm("GuiderProfilePost", "Account", FormMethod.Post, new { role = "form", id = "form-account-profile", enctype = "multipart/form-data" }))
                                         {
                                             @Html.AntiForgeryToken()
                                             <section id="contact">
@@ -269,7 +182,6 @@
                                                 </div><!-- /.form-group -->
                                             </section>
                                         }
-                                    }
                                     <section id="change-password">
                                         <header><h2>Change Your Password</h2></header>
                                         <div class="row">
@@ -281,7 +193,7 @@
                                                     </div><!-- /.form-group -->
                                                     <div class="form-group">
                                                         <label for="form-account-password-new">New Password</label>
-                                                        <input type="password" class="form-control" id="form-account-password-new" name="form-account-password-new">
+                                                        <input type="password" class="form-control" id="form-account-password-new" name="form-account-password-new" />
                                                     </div><!-- /.form-group -->
                                                     <div class="form-group">
                                                         <label for="form-account-password-confirm-new">Confirm New Password</label>
@@ -312,21 +224,229 @@
     </div>
     <!-- end Page Content -->
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC34PVHithrgKTqdV4LEid9Le_-IFrZ150&libraries=places&callback=initAutocomplete&language=en"
-        async defer></script>
-@Scripts.Render("~/assets/js/js-input-file/custom-file-input.js")
 
+@section MapScript{
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC34PVHithrgKTqdV4LEid9Le_-IFrZ150&libraries=places&callback=initAutocomplete&language=en"
+            async defer></script>
+}
+
+@{
+    string userLatitude = Convert.ToString(Model.Guider.Latitude).Replace(',', '.');
+    string userLongitude = Convert.ToString(Model.Guider.Longitude).Replace(',', '.');
+}
 
 @if (User.IsInRole("Guider"))
-{
-    string usersLatitude = Convert.ToString(Model.Guider.Latitude).Replace(',','.');
-    string userLongitude = Convert.ToString(Model.Guider.Longitude).Replace(',', '.');
-    
+{   
+    //Google Map Script
     <script type="text/javascript">
-        var temp_latitude = @usersLatitude;
+        var temp_latitude = @userLatitude;
         var temp_logitude = @userLongitude;
         var _latitude = parseFloat(temp_latitude);
         var _longitude = parseFloat(temp_logitude);
+
+        google.maps.event.addDomListener(window, 'load', init);
+
+        function init() {
+            // Basic options for a simple Google Map
+            // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+    
+            var mapOptions = {
+                // How zoomed in you want the map to start at (always required)
+                zoom: 11,
+                disableDefaultUI: false,
+                // The latitude and longitude to center the map (always required)
+                center: new google.maps.LatLng(_latitude, _longitude), // New York
+
+                // How you would like to style the map.
+                // This is where you would paste any style found on Snazzy Maps.
+                styles: [{ "featureType": "administrative", "elementType": "labels.text.fill", "stylers": [{ "color": "#9b9b9b" }] }, { "featureType": "administrative", "elementType": "labels.text.stroke", "stylers": [{ "color": "#ffffff" }] }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "hue": "#ffbf00" }, { "saturation": "-100" }, { "lightness": "27" }] }, { "featureType": "landscape", "elementType": "geometry.fill", "stylers": [{ "color": "#f0f0f0" }] }, { "featureType": "landscape.man_made", "elementType": "geometry.fill", "stylers": [{ "color": "#f0f0f0" }, { "visibility": "on" }] }, { "featureType": "landscape.man_made", "elementType": "geometry.stroke", "stylers": [{ "color": "#3d68eb" }, { "saturation": "-73" }, { "lightness": "71" }, { "visibility": "on" }] }, { "featureType": "poi", "elementType": "geometry.fill", "stylers": [{ "hue": "#00ff4e" }, { "saturation": "-30" }] }, { "featureType": "poi.attraction", "elementType": "geometry.fill", "stylers": [{ "hue": "#00fff1" }, { "saturation": "-39" }] }, { "featureType": "poi.attraction", "elementType": "labels", "stylers": [{ "hue": "#003fff" }] }, { "featureType": "poi.business", "elementType": "labels", "stylers": [{ "hue": "#003fff" }, { "saturation": "-50" }, { "lightness": "0" }] }, { "featureType": "poi.government", "elementType": "labels", "stylers": [{ "hue": "#003fff" }] }, { "featureType": "poi.medical", "elementType": "geometry.fill", "stylers": [{ "hue": "#0071ff" }] }, { "featureType": "poi.medical", "elementType": "labels", "stylers": [{ "hue": "#003fff" }, { "saturation": "-73" }] }, { "featureType": "poi.park", "elementType": "geometry.fill", "stylers": [{ "hue": "#00ff4e" }, { "saturation": "-30" }] }, { "featureType": "poi.park", "elementType": "labels.text", "stylers": [{ "visibility": "on" }, { "hue": "#00ff95" }, { "saturation": "-53" }] }, { "featureType": "poi.place_of_worship", "elementType": "geometry.fill", "stylers": [{ "hue": "#00ff4e" }] }, { "featureType": "poi.place_of_worship", "elementType": "labels", "stylers": [{ "hue": "#003fff" }] }, { "featureType": "poi.school", "elementType": "geometry.fill", "stylers": [{ "hue": "#ff0000" }, { "saturation": "-100" }, { "lightness": "12" }] }, { "featureType": "poi.school", "elementType": "labels", "stylers": [{ "hue": "#003fff" }] }, { "featureType": "poi.sports_complex", "elementType": "geometry.fill", "stylers": [{ "hue": "#00ff4e" }, { "saturation": "-30" }] }, { "featureType": "poi.sports_complex", "elementType": "labels", "stylers": [{ "hue": "#003fff" }] }, { "featureType": "road", "elementType": "labels.text.fill", "stylers": [{ "color": "#9b9b9b" }] }, { "featureType": "road", "elementType": "labels.icon", "stylers": [{ "hue": "#00a3ff" }] }, { "featureType": "road.highway", "elementType": "geometry.fill", "stylers": [{ "saturation": "17" }, { "lightness": "15" }, { "hue": "#0095ff" }] }, { "featureType": "road.highway", "elementType": "geometry.stroke", "stylers": [{ "hue": "#0095ff" }] }, { "featureType": "transit", "elementType": "labels", "stylers": [{ "hue": "#002bff" }, { "saturation": "-100" }, { "gamma": "1.00" }] }, { "featureType": "transit", "elementType": "labels.text.fill", "stylers": [{ "color": "#9b9b9b" }] }, { "featureType": "transit", "elementType": "labels.text.stroke", "stylers": [{ "color": "#ffffff" }] }, { "featureType": "water", "elementType": "geometry.fill", "stylers": [{ "color": "#98aef2" }] }, { "featureType": "water", "elementType": "labels.text", "stylers": [{ "hue": "#00b1ff" }, { "lightness": "33" }] }, { "featureType": "water", "elementType": "labels.text.fill", "stylers": [{ "color": "#233d8d" }] }]
+            };
+
+            // Get the HTML DOM element that will contain your map
+            // We are using a div with id="map" seen below in the <body>
+            var mapElement = document.getElementById('submit-map');
+
+            // Create the Google Map using our element and options defined above
+            var map = new google.maps.Map(mapElement, mapOptions);
+
+            // Let's also add a marker while we're at it
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(_latitude, _longitude),
+                map: map,
+                title: 'Snazzy!',
+                icon: '/assets/img/marker.png',
+                labelAnchor: new google.maps.Point(50, 0),
+                draggable: true
+            });
+
+            //Reverse Geolocation ti find out the street adress
+            var geocoder = new google.maps.Geocoder;
+            var latlng = {lat: _latitude, lng: _longitude};
+            geocoder.geocode({'location': latlng}, function(results, status) {
+                if (status === 'OK') {
+                    if (results[0]) {
+                        $('#address-map').val(results[0].formatted_address);
+                    } else {
+                        window.alert('No results found');
+                    }
+                } else {
+                    window.alert('Geocoder failed due to: ' + status);
+                }
+            });
+
+            $('#submit-map').removeClass('fade-map');
+            google.maps.event.addListener(marker, "mouseup", function (event) {
+                var latitude = this.position.lat();
+                var longitude = this.position.lng();
+                $('#latitude').val(this.position.lat());
+                $('#longitude').val(this.position.lng());
+            });
+        }
     </script>
 
+}
+
+@section GuiderAccountScripts {
+        
+        
+        @Scripts.Render("~/assets/js/pignose/dist/pignose.calendar.full.min.js")
+        <script type="text/javascript">
+            //<![CDATA[
+            var $myDates = [
+                    ['2016-10-05', '2016-10-21'],
+                    ['2016-11-01', '2016-11-07'],
+                    ['2016-11-19', '2016-11-21'],
+                    ['2016-12-05', '2016-12-08'],
+                    ['2016-12-17', '2016-12-18'],
+                    ['2016-12-29', '2016-12-30'],
+                    ['2017-01-10', '2017-01-20'],
+                    ['2017-02-10', '2017-04-11'],
+                    ['2017-07-04', '2017-07-09'],
+                    ['2017-12-01', '2017-12-25'],
+                    ['2018-02-10', '2018-02-26'],
+                    ['2018-05-10', '2018-09-17'],
+            ];
+            $(function () {
+                $('#wrapperCalendar .version strong').text('v' + $.fn.pignoseCalendar.version);
+
+                function onSelectHandler(date, context) {
+
+                    var $element = context.element;
+                    var $calendar = context.calendar;
+                    var $box = $element.siblings('.box').show();
+                    var text = 'You selected date ';
+
+                    if (date[0] !== null) {
+                        text += date[0].format('YYYY-MM-DD');
+                    }
+
+                    if (date[0] !== null && date[1] !== null) {
+                        text += ' ~ ';
+                    }
+                    else if (date[0] === null && date[1] == null) {
+                        text += 'nothing';
+                    }
+
+                    if (date[1] !== null) {
+                        text += date[1].format('YYYY-MM-DD');
+                    }
+                    $box.text(text);
+                }
+
+                function onApplyHandler(date, context) {
+
+                    var $element = context.element;
+                    var $calendar = context.calendar;
+                    var $box = $element.siblings('.box').show();
+                    var text = 'You applied date ';
+
+                    if (date[0] !== null) {
+                        text += date[0].format('YYYY-MM-DD');
+                    }
+
+                    if (date[0] !== null && date[1] !== null) {
+                        text += ' ~ ';
+                    }
+                    else if (date[0] === null && date[1] == null) {
+                        text += 'nothing';
+                    }
+
+                    if (date[1] !== null) {
+                        text += date[1].format('YYYY-MM-DD');
+                    }
+                    //'Url.Action("AddNonWorkingDay", "Account")'
+
+                    //Asynchronus Ajax Post
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Account/AddNonWorkingDay',
+                        data: { dateFrom: date[0].format("YYYY/MM-DD").toString(), dateTo: date[1].format("YYYY-MM-DD").toString() },
+                        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                        success: function (response) {
+                            // Result
+                            if( response.success == false )
+                            {
+                                alert(response.responseText);
+                            }
+                            else
+                            {
+                                alert("ok");
+                            }
+                        },
+                        error: function (response) {
+                            //do your own thing
+                            //alert("fail");
+                            alert("provima ree");
+                        }
+                    });
+
+                    $box.text(text);
+                }
+
+                // Input Calendar
+                $('.input-calendar').pignoseCalendar({
+                    apply: onApplyHandler,
+                    buttons: true, // It means you can give bottom button controller to the modal which be opened when you click.
+                    multiple: true,
+                    select: onSelectHandler,
+                    selectOver: true,
+                    disabledRanges: $myDates,
+                });
+
+                // Disabled date settings.
+                (function () {
+                    // IIFE Closure
+                    var times = 30;
+                    var disabledDates = [];
+                    for (var i = 0; i < times; /* Do not increase index */) {
+                        var year = moment().year();
+                        var month = 0;
+                        var day = parseInt(Math.random() * 364 + 1);
+                        var date = moment().year(year).month(month).date(day).format('YYYY-MM-DD');
+                        if ($.inArray(date, disabledDates) === -1) {
+                            disabledDates.push(date);
+                            i++;
+                        }
+                    }
+
+                    disabledDates.sort();
+
+                    var $dates = $('.disabled-dates-calendar').siblings('.guide').find('.guide-dates');
+                    for (var idx in disabledDates) {
+                        $dates.append('<span>' + disabledDates[idx] + '</span>');
+                    }
+
+                    $('.disabled-dates-calendar').pignoseCalendar({
+                        select: onSelectHandler,
+                        disabledDates: disabledDates
+                    });
+                }());
+
+
+
+                // This use for DEMO page tab component.
+                $('.menu .item').tab();
+            });
+            //]]>
+</script>
 }

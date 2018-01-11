@@ -16,6 +16,9 @@ using System.Data.Entity.Infrastructure;
 using System.IO;
 using WebApplication5.IService;
 
+using System.Diagnostics;
+
+
 namespace WebApplication5.Controllers
 {
     [Authorize]
@@ -24,6 +27,7 @@ namespace WebApplication5.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private ApplicationDbContext db = new ApplicationDbContext();
+        private AccountService accountService = new AccountService();
 
         public AccountController()
         {
@@ -421,7 +425,7 @@ namespace WebApplication5.Controllers
                 .Where(s => s.Id == currentUserId)
                 .Single();
 
-                return View(userProfileForTravellers);
+                return View("UserProfileForTraveller", userProfileForTravellers);
             }
             else if (User.IsInRole("Guider"))
             {
@@ -430,7 +434,7 @@ namespace WebApplication5.Controllers
                     .Where(s => s.Id == currentUserId)
                     .Single();
 
-                return View(userProfileForGuiders);
+                return View("UserProfileForGuider", userProfileForGuiders);
             }
             return View();
 
@@ -497,7 +501,28 @@ namespace WebApplication5.Controllers
             return RedirectToAction("UserProfile", "Account");
         }
 
-        
+        //
+        //POST :/Account/AddNonWorkingDay
+        [HttpPost]
+        public async Task<JsonResult> AddNonWorkingDay(string dateFrom, string dateTo)
+        {
+            string guiderId = User.Identity.GetUserId();
+            UnavailableDate unavailableDate = new UnavailableDate();
+            try
+            {
+                unavailableDate = accountService.GetUnavailableDate(dateFrom, dateTo, guiderId);
+                await accountService.InsertDbNonWorkingDayAsync(unavailableDate);
+            }
+            catch( Exception e)
+            {
+
+                Debug.Print(e.Message); //Debuger 
+                return Json(new { success = false, responseText = "There was an error, the data did not store!" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { success = true, responseText= "Your message successfuly sent!"}, JsonRequestBehavior.AllowGet);
+        }
+
         //
         //POST : /Account/GuiderProfilePost
         [HttpPost]

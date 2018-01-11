@@ -46,6 +46,9 @@ namespace WebApplication5.Models
         [StringLength(256)]
         public string DocumentPDF { get; set; }
 
+        [DataType(DataType.Currency)]
+        public decimal ChargePerHour { get; set; }
+
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
         public bool IsAccepted { get; set; }
